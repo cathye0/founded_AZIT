@@ -1,0 +1,108 @@
+#include "DHT.h"
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27, 20, 4);
+#define DHTPIN 2
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+
+
+int r1 = 6;
+int r2 = 7;
+
+int g1 = 4;
+int g2 = 5;
+
+int y1 = 8;
+int y2 = 9;
+
+
+
+
+void setup() {
+  // put your setup code here, to run once:
+  dht.begin();
+  lcd.backlight();
+
+
+
+
+
+  pinMode(r1, OUTPUT);
+  pinMode(r2, OUTPUT);
+  pinMode(g1, OUTPUT);
+  pinMode(g2, OUTPUT);
+  pinMode(y1, OUTPUT);
+  pinMode(y2, OUTPUT);
+
+  digitalWrite(r1, LOW);
+  digitalWrite(r2, LOW);
+  digitalWrite(y1, LOW);
+  digitalWrite(y2, LOW);
+  digitalWrite(g1, LOW);
+  digitalWrite(g2, LOW);
+
+}
+
+
+
+
+
+
+
+
+
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+  lcd.init();
+  lcd.init();
+  float h = dht.readHumidity();
+
+  float t = dht.readTemperature();
+
+
+  // Compute heat index in Celsius (isFahreheit = false)
+
+  lcd.setCursor(1, 0);
+  lcd.print(" temp : ");
+  lcd.print(t);
+  lcd.setCursor(1, 1);
+  lcd.print("humid : ");
+  lcd.print(h);
+
+
+  if (h >= 90.0)
+  {
+    digitalWrite(g1, HIGH);
+    digitalWrite(g2, HIGH);
+  }
+
+  else if (t >= 32.0)
+  {
+    digitalWrite(r1, HIGH);
+    digitalWrite(r2, HIGH);
+  }
+  else
+  {
+    digitalWrite(y1, HIGH);
+    digitalWrite(y2, HIGH);
+  }
+
+  delay(20000);
+
+  digitalWrite(r1, LOW);
+  digitalWrite(r2, LOW);
+  digitalWrite(y1, LOW);
+  digitalWrite(y2, LOW);
+  digitalWrite(g1, LOW);
+  digitalWrite(g2, LOW);
+
+
+
+
+
+
+}
