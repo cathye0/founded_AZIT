@@ -4,5 +4,5 @@
    
 2. 날씨알림박스
    
-3. upps(Unmanned precision pesticide sprayer)\
+3. upps(Unmanned precision pesticide sprayer)
    
